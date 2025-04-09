@@ -1,0 +1,83 @@
+<div class="hero">
+    <h1>Welcome to InkFlow</h1>
+    <p>A simple blogging platform for developers</p>
+    {{#unless isAuthenticated}}
+        <a href="/auth/login" class="btn">Get Started</a>
+    {{else}}
+        <a href="/blogs/create" class="btn">Start Writing</a>
+    {{/unless}}
+</div>
+
+<div class="latest-blogs">
+    <h2>Latest Blogs</h2>
+    
+    {{#if latestBlogs.length}}
+        <div class="blogs-grid">
+            {{#each latestBlogs}}
+                <div class="card">
+                    <h3>{{title}}</h3>
+                    <p class="author">By {{author.name}}</p>
+                    <div class="blog-preview">
+                        {{truncateText content 150}}
+                    </div>
+                    <div class="blog-meta">
+                        <span>{{formatDate createdAt}}</span>
+                        {{#if tags.length}}
+                            <span>Tags: {{tags}}</span>
+                        {{/if}}
+                    </div>
+                    <a href="/blogs/{{_id}}" class="btn">Read More</a>
+                </div>
+            {{/each}}
+        </div>
+    {{else}}
+        <p>No blogs published yet.</p>
+    {{/if}}
+    
+    <a href="/blogs" class="btn">View All Blogs</a>
+</div>
+
+<style>
+    .hero {
+        text-align: center;
+        padding: 3rem 1rem;
+        margin-bottom: 2rem;
+        background-color: #3498db;
+        color: #fff;
+        border-radius: 5px;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+    .latest-blogs {
+        margin-top: 2rem;
+    }
+    .latest-blogs h2 {
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #3498db;
+    }
+    .blogs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    .author {
+        color: #666;
+        margin: 0.5rem 0;
+    }
+    .blog-preview {
+        margin: 1rem 0;
+    }
+    .blog-meta {
+        color: #666;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+    }
+</style>

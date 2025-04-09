@@ -1,0 +1,146 @@
+<h1>Trending Blogs</h1>
+
+<div class="trending-description">
+    <p>Discover the most popular blogs on InkFlow right now</p>
+</div>
+
+{{#if blogs.length}}
+    <div class="trending-list">
+        {{#each blogs}}
+            <div class="card blog-card">
+                <h2><a href="/blogs/{{_id}}">{{title}}</a></h2>
+                <p class="author">
+                    {{#if author.avatar}}
+                        <img src="{{author.avatar}}" alt="{{author.name}}" class="avatar">
+                    {{/if}}
+                    By {{author.name}}
+                </p>
+                
+                <div class="blog-stats">
+                    <span class="likes">{{likes}} likes</span>
+                </div>
+                
+                <div class="blog-preview">
+                    {{content}}
+                </div>
+                
+                <div class="blog-meta">
+                    <span class="date">Posted on {{formatDate createdAt}}</span>
+                    
+                    {{#if tags.length}}
+                        <div class="tags">
+                            {{#each tags}}
+                                <a href="/blogs?tag={{this}}" class="tag">{{this}}</a>
+                            {{/each}}
+                        </div>
+                    {{/if}}
+                </div>
+                
+                <a href="/blogs/{{_id}}" class="btn">Read More</a>
+            </div>
+        {{/each}}
+    </div>
+{{else}}
+    <div class="no-blogs">
+        <p>No trending blogs available at the moment.</p>
+    </div>
+{{/if}}
+
+<style>
+    .trending-description {
+        margin-bottom: 1.5rem;
+        color: #555;
+    }
+    
+    .trending-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .blog-card {
+        position: relative;
+        padding-top: 2.5rem;
+    }
+    
+    .blog-stats {
+        position: absolute;
+        top: 0.5rem;
+        right: 1rem;
+        background: #e74c3c;
+        color: white;
+        padding: 0.2rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.85rem;
+    }
+    
+    .blog-card h2 {
+        margin-bottom: 0.5rem;
+    }
+    
+    .blog-card h2 a {
+        color: #2c3e50;
+        text-decoration: none;
+    }
+    
+    .blog-card h2 a:hover {
+        color: #3498db;
+    }
+    
+    .author {
+        display: flex;
+        align-items: center;
+        color: #666;
+        margin-bottom: 1rem;
+    }
+    
+    .avatar {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+    }
+    
+    .blog-preview {
+        margin: 1rem 0;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+    
+    .blog-meta {
+        color: #666;
+        font-size: 0.9rem;
+        margin: 1rem 0;
+    }
+    
+    .tags {
+        margin-top: 0.5rem;
+    }
+    
+    .tag {
+        display: inline-block;
+        background: #f0f0f0;
+        padding: 0.2rem 0.5rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        margin-right: 0.5rem;
+        color: #333;
+        text-decoration: none;
+    }
+    
+    .tag:hover {
+        background: #e0e0e0;
+    }
+    
+    .no-blogs {
+        text-align: center;
+        padding: 2rem;
+        background: #f9f9f9;
+        border-radius: 5px;
+    }
+</style>
