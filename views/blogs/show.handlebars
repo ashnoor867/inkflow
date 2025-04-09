@@ -15,18 +15,19 @@
                 (Updated: {{formatDate blog.updatedAt}})
             {{/if}}
         </div>
-        
-        {{#if blog.tags.length}}
-            <div class="tags">
-                {{#each blog.tags}}
-                    <a href="/blogs?tag={{this}}" class="tag">{{this}}</a>
-                {{/each}}
-            </div>
-        {{/if}}
     </div>
     
     <div class="blog-content">
         {{blog.content}}
+    </div>
+
+    <div class="tags">
+        {{#if blog.tags.length}}
+            <strong class="tagsTitle">Tags:</strong>
+            {{#each blog.tags}}
+                <a href="/blogs?tag={{this}}" class="tag">{{this}}</a>
+            {{/each}}
+        {{/if}}
     </div>
     
     {{#if isOwner}}

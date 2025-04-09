@@ -45,6 +45,11 @@ require('./config/passport');
 const hbsInstance = engine({
   defaultLayout: 'main',
   layoutsDir: path.join(__dirname, '../views/layouts'),
+  // Add this option to fix the handlebars property access warnings
+  runtimeOptions: {
+    allowProtoPropertiesByDefault: true,
+    allowProtoMethodsByDefault: true
+  },
   helpers: {
     // Register helpers directly here as an alternative
     formatDate: (date) => {
