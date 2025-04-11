@@ -1,45 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}} | InkFlow</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <a href="/">InkFlow</a>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="/blogs">Blogs</a></li>
-                    <li><a href="/blogs/trending">Trending</a></li>
-                    {{#if isAuthenticated}}
-                        <li><a href="/blogs/dashboard">My Blogs</a></li>
-                        <li><a href="/blogs/create">Write</a></li>
-                        <li><a href="/auth/logout">Logout</a></li>
-                    {{else}}
-                        <li><a href="/auth/login">Login</a></li>
-                    {{/if}}
-                </ul>
-            </nav>
-        </div>
-    </header>
 
+<body>
+    {{>navbar}}
     <main class="container">
         {{#if error}}
-            <div class="alert">{{error}}</div>
+        <div class="alert">{{error}}</div>
         {{/if}}
-        
+
         {{{body}}}
     </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; {{getCurrentYear}} InkFlow. All rights reserved.</p>
-        </div>
-    </footer>
+    {{>footer}}
 </body>
+
 </html>

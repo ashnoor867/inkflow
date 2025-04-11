@@ -1,0 +1,20 @@
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <a href="/">InkFlow</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/blogs">Blogs</a></li>
+                <li><a href="/blogs/trending">Trending</a></li>
+                {{#if isAuthenticated}}
+                <li><a href="/blogs/dashboard">My Blogs</a></li>
+                <li><a href="/blogs/create">Write</a></li>
+                <li><a href="/auth/logout">Logout</a></li>
+                {{else}}
+                <li><a href="/auth/login">Login</a></li>
+                {{/if}}
+            </ul>
+        </nav>
+    </div>
+</header>

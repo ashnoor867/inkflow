@@ -1,17 +1,23 @@
+{{!-- Hero Section --}}
 <div class="hero">
     <h1>Welcome to InkFlow</h1>
     <p>A simple blogging platform for developers</p>
+
     {{#unless isAuthenticated}}
+         {{!-- Show login button if not authenticated --}}
         <a href="/auth/login" class="btn">Get Started</a>
     {{else}}
+         {{!-- Show create blog button if authenticated --}}
         <a href="/blogs/create" class="btn">Start Writing</a>
     {{/unless}}
 </div>
 
+ {{!-- Latest Blogs Section --}}
 <div class="latest-blogs">
     <h2>Latest Blogs</h2>
-    
+
     {{#if latestBlogs.length}}
+         {{!-- Display blog cards --}}
         <div class="blogs-grid">
             {{#each latestBlogs}}
                 <div class="card">
@@ -31,9 +37,11 @@
             {{/each}}
         </div>
     {{else}}
+         {{!-- No blogs available --}}
         <p>No blogs published yet.</p>
     {{/if}}
-    
+
+     {{!-- Link to view all blogs --}}
     <a href="/blogs" class="btn">View All Blogs</a>
 </div>
 

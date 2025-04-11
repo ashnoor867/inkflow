@@ -2,11 +2,8 @@
   "name": "inkflow",
   "version": "1.0.0",
   "description": "Simple blogging platform with GitHub authentication",
-  "main": "src/app.js",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
   "keywords": [
     "blog",
@@ -15,7 +12,6 @@
   ],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
@@ -24,7 +20,11 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.13.2",
     "passport": "^0.7.0",
-    "passport-github2": "^0.1.12"
+    "passport-github2": "^0.1.12",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
