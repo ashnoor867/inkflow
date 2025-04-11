@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
-const { engine } = require('express-handlebars');
+const hbs = require('hbs');
 const path = require('path');
 require('dotenv').config();
 
@@ -12,7 +12,7 @@ const blogRoutes = require('./routes/blogs');
 const indexRoutes = require('./routes/index');
 
 // Import handlebars helpers
-const { registerHelpers } = require('./config/handlebars-helpers');
+const { registerHelpers } = require('./config/hbs-helpers');
 
 // Initialize app
 const app = express();
@@ -41,33 +41,18 @@ app.use(passport.session());
 // Configure passport
 require('./config/passport');
 
-// Set up handlebars as the view engine with custom helpers
-const hbsInstance = engine({
-  defaultLayout: 'main',
-  layoutsDir: path.join(__dirname, '../views/layouts'),
-  // Add this option to fix the handlebars property access warnings
-  runtimeOptions: {
-    allowProtoPropertiesByDefault: true,
-    allowProtoMethodsByDefault: true
-  },
-  helpers: {
-    // Register helpers directly here as an alternative
-    formatDate: (date) => {
-      if (!date) return '';
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      return new Date(date).toLocaleDateString('en-US', options);
-    },
-    truncateText: (text, length) => {
-      if (!text || text.length <= length) return text;
-      return text.substring(0, length) + '...';
-    },
-    getCurrentYear: () => new Date().getFullYear()
-  }
+// Set up hbs as the view engine with custom helpers
+app.set('view options', { 
+  layout: 'layouts/main' 
 });
-
-app.engine('handlebars', hbsInstance);
-app.set('view engine', 'handlebars');
+app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, '../views'));
+
+// Register partials directory
+hbs.registerPartials(path.join(__dirname, '../views/partials'));
+
+// Register custom helpers
+registerHelpers(hbs);
 
 // Routes
 app.use('/', indexRoutes);

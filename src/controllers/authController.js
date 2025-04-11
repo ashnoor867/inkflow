@@ -1,18 +1,14 @@
-/**
- * Display the login page
- */
+// Show login page and handle logout
 const showLoginPage = (req, res) => {
   res.render('login', {
-    title: 'Login'
+    title: 'Login Page'
   });
 };
 
-/**
- * Handle logout
- */
+// Handle logout
 const logout = (req, res, next) => {
-  req.logout((err) => {
-    if (err) { return next(err); }
+  req.logout((error) => {
+    if (error) { return next(error); }
     res.redirect('/');
   });
 };

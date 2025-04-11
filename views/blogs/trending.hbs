@@ -43,6 +43,10 @@
 {{else}}
     <div class="no-blogs">
         <p>No trending blogs available at the moment.</p>
+        <p>Blogs need at least one like to appear in the trending section.</p>
+        <div class="empty-state-actions">
+            <a href="/blogs" class="btn btn-secondary">Browse All Blogs</a>
+        </div>
     </div>
 {{/if}}
 
@@ -142,5 +146,17 @@
         padding: 2rem;
         background: #f9f9f9;
         border-radius: 5px;
+    }
+    
+    .empty-state-actions {
+        margin-top: 1.5rem;
+    }
+    
+    .btn-secondary {
+        background-color: #95a5a6;
+    }
+    
+    .btn-secondary:hover {
+        background-color: #7f8c8d;
     }
 </style>

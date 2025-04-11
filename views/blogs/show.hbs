@@ -30,6 +30,19 @@
         {{/if}}
     </div>
     
+    <div class="blog-engagement">
+        <div class="like-section" data-blog-id="{{blog._id}}">
+            <span class="likes-count">{{blog.likes}}</span>
+            {{#if isAuthenticated}}
+                <button class="like-button {{#if hasLiked}}liked{{/if}}">
+                    {{#if hasLiked}}Unlike{{else}}Like{{/if}}
+                </button>
+            {{else}}
+                <span class="like-info">Likes</span>
+            {{/if}}
+        </div>
+    </div>
+    
     {{#if isOwner}}
         <div class="blog-actions">
             <a href="/blogs/edit/{{blog._id}}" class="btn btn-edit">Edit Blog</a>
@@ -41,6 +54,51 @@
 <div class="blog-navigation">
     <a href="/blogs" class="btn btn-secondary">Back to Blogs</a>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const likeSection = document.querySelector('.like-section');
+    
+    if (likeSection) {
+        const likeButton = likeSection.querySelector('.like-button');
+        const likesCount = likeSection.querySelector('.likes-count');
+        const blogId = likeSection.dataset.blogId;
+        
+        if (likeButton) {
+            likeButton.addEventListener('click', async function() {
+                try {
+                    const response = await fetch(`/blogs/like/${blogId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        // Update likes count
+                        likesCount.textContent = data.likes;
+                        
+                        // Toggle button appearance
+                        if (data.hasLiked) {
+                            likeButton.classList.add('liked');
+                            likeButton.textContent = 'Unlike';
+                        } else {
+                            likeButton.classList.remove('liked');
+                            likeButton.textContent = 'Like';
+                        }
+                    } else {
+                        console.error('Failed to update like status:', data.message);
+                    }
+                } catch (error) {
+                    console.error('Error toggling like:', error);
+                }
+            });
+        }
+    }
+});
+</script>
 
 <style>
     .blog-post {
@@ -104,6 +162,46 @@
         line-height: 1.8;
         font-size: 1.1rem;
         margin-bottom: 2rem;
+    }
+    
+    .blog-engagement {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid #eee;
+    }
+    
+    .like-section {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .likes-count {
+        font-weight: bold;
+        color: #3498db;
+    }
+    
+    .like-button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        padding: 0.3rem 0.8rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    
+    .like-button.liked {
+        background-color: #2980b9;
+    }
+    
+    .like-button:hover {
+        background-color: #2980b9;
+    }
+    
+    .like-info {
+        color: #7f8c8d;
+        font-size: 0.9rem;
     }
     
     .blog-actions {

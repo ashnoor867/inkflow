@@ -1,6 +1,4 @@
-/**
- * Middleware to ensure user is authenticated
- */
+// Middleware for authentication checks and user management
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -11,9 +9,7 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/auth/login');
 }
 
-/**
- * Middleware to add user to response locals
- */
+// Middleware to add user information to response locals
 function addUserToLocals(req, res, next) {
   res.locals.user = req.user || null;
   res.locals.isAuthenticated = req.isAuthenticated();

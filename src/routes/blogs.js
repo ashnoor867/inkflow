@@ -16,6 +16,7 @@ router.post('/create', ensureAuthenticated, blogController.createBlog);
 router.get('/edit/:id', ensureAuthenticated, blogController.showEditForm);
 router.post('/edit/:id', ensureAuthenticated, blogController.updateBlog);
 router.get('/delete/:id', ensureAuthenticated, blogController.deleteBlog);
+router.post('/like/:id', ensureAuthenticated, blogController.toggleLikeBlog);
 
 // Get single blog (public)
 router.get('/:id', blogController.showBlog);
